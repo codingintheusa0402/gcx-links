@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Chat 열기</title>
+<style>body{font-family:-apple-system,system-ui,sans-serif;background:#111;color:#eee;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:90vh;margin:0 16px;text-align:center}
+a{display:block;margin:10px auto;padding:14px 20px;border-radius:10px;background:#1e8e3e;color:#fff;text-decoration:none;font-weight:600;max-width:320px}a.alt{background:#333}</style></head>
+<body><p>Google Chat 여는 중…</p>
+<a id="app" href="#">Google Chat 앱에서 열기</a><a id="web" class="alt" href="#">브라우저에서 열기</a>
+<script>
+// Opens a GCX Google Chat room/thread from KakaoTalk alerts. KakaoTalk's in-app browser can't hand chat.google.com links
+// to the Chat app, so this page asks KakaoTalk to open the link in Safari (iOS then opens the Google Chat app).
+var p = new URLSearchParams(location.search).get('p') || '/room/AAQAc9NQmJQ';
+if (!/^\/room\/[A-Za-z0-9_\-\/]+$/.test(p)) p = '/room/AAQAc9NQmJQ';   // chat.google.com rooms only — no open redirect
+var web = 'https://chat.google.com' + p, app = 'googlechat://chat.google.com' + p;
+document.getElementById('app').href = app; document.getElementById('web').href = web;
+if (/KAKAOTALK/i.test(navigator.userAgent)) location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(web);
+else location.replace(web);
+</script></body></html>
